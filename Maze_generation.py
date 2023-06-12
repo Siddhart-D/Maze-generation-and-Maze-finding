@@ -11,7 +11,7 @@ GREEN = (0, 255, 0)
 maze_width = 60
 maze_height = 50
 maze = [[0] * maze_width for _ in range(maze_height)]
-path_width = 5
+path_width = 4
 
 # Algorithm variables
 visited_cells = 45
@@ -22,19 +22,9 @@ pygame.init()
 screen_width = maze_width * (path_width + 1)
 screen_height = maze_height * (path_width + 1)
 screen = pygame.display.set_mode((screen_width, screen_height))
-# make display scrollable
-screen.scroll(5 , 5)
 pygame.display.set_caption("MAZE")
 
-# Main game loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    # Do Maze Algorithm
+def randomized_depth_first_search(visited_cells, stack):
     if visited_cells < maze_width * maze_height:
         # Create a set of unvisited neighbors
         neighbors = []
@@ -72,6 +62,18 @@ while running:
         else:
             # No available neighbors, backtrack
             stack.pop()
+
+# Main game loop
+running = True
+while running:
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    
+    # Algorithm
+    randomized_depth_first_search(visited_cells, stack)
+        
 
     # Clear the screen
     screen.fill(BLACK)
